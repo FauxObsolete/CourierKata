@@ -11,10 +11,10 @@ namespace UnitTestProject1
             Width = width;
             Length = length;
         }
-   
+
         public int Height { get; }
 
-        public int Width { get;  }
+        public int Width { get; }
 
         public int Length { get; }
 
@@ -22,7 +22,7 @@ namespace UnitTestProject1
         {
             get
             {
-                return Enumerable.Max(new []{ Height, Width, Length });
+                return Enumerable.Max(new[] { Height, Width, Length });
             }
         }
     }
@@ -33,9 +33,23 @@ namespace UnitTestProject1
         {
             Charges = charges;
         }
-        public decimal TotalCost { get; }
+        public decimal Total
+        {
+            get
+            {
+                return Charges.Sum(x => x.Cost);
+            }
+        }
 
         public IEnumerable<PackageCharge> Charges { get; }
+
+        public decimal SpeedyTotal
+        {
+            get
+            {
+                return 2 * Total;
+            }
+        }
     }
 
     public class PackageCharge
