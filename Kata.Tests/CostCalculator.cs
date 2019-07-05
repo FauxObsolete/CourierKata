@@ -6,12 +6,12 @@ namespace UnitTestProject1
 {
     public class CostCalculator
     {
-        public CalcResult CalcCost(IEnumerable<Package> packages)
+        public CalcResult CalcCost(IEnumerable<Parcel> packages)
         {
             return new CalcResult(packages.Select(x => DoSizeCalc(x)));
         }
 
-        private PackageCharge DoSizeCalc(Package package)
+        private PackageCharge DoSizeCalc(Parcel package)
         {
             if (package.LargestDimension < 10)
                 return new PackageCharge { Cost = 3, Size = PackageSize.Small };

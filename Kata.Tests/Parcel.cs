@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace UnitTestProject1
 {
-    public class Package
+    public class Parcel
     {
-        public Package(int height, int width, int length)
+        public Parcel(int height, int width, int length)
         {
             Height = height;
             Width = width;

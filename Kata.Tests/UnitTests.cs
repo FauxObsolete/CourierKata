@@ -16,10 +16,10 @@ namespace UnitTestProject1
         {
             // arrange
             var calc = new CostCalculator();
-            var package = new Package(height, width, length);
+            var package = new Parcel(height, width, length);
 
             // act
-            var res = calc.CalcCost(new List<Package>() { package });
+            var res = calc.CalcCost(new List<Parcel>() { package });
 
             // assert
             Assert.AreEqual(cost, res.Charges.First().Cost);
