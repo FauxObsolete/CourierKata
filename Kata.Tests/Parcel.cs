@@ -5,11 +5,12 @@ namespace UnitTestProject1
 {
     public class Parcel
     {
-        public Parcel(int height, int width, int length)
+        public Parcel(int height, int width, int length, int weight)
         {
             Height = height;
             Width = width;
             Length = length;
+            Weight = weight;
         }
 
         public int Height { get; }
@@ -17,6 +18,8 @@ namespace UnitTestProject1
         public int Width { get; }
 
         public int Length { get; }
+
+        public int Weight { get; }
 
         public int LargestDimension
         {
@@ -29,7 +32,7 @@ namespace UnitTestProject1
 
     public class CalcResult
     {
-        public CalcResult(IEnumerable<PackageCharge> charges)
+        public CalcResult(IEnumerable<ParcelCharge> charges)
         {
             Charges = charges;
         }
@@ -37,11 +40,11 @@ namespace UnitTestProject1
         {
             get
             {
-                return Charges.Sum(x => x.Cost);
+                return Charges.Sum(x => x.TotalCharge);
             }
         }
 
-        public IEnumerable<PackageCharge> Charges { get; }
+        public IEnumerable<ParcelCharge> Charges { get; }
 
         public decimal SpeedyTotal
         {
@@ -52,13 +55,26 @@ namespace UnitTestProject1
         }
     }
 
-    public class PackageCharge
+    public class ParcelCharge
     {
-        public decimal Cost { get; set; }
-        public PackageSize Size { get; set; }
+        public ParcelCharge(Parcel parcel)
+        {
+            Parcel = parcel;
+        }
+        public decimal TotalCharge
+        {
+            get
+            {
+                return OverweightCharge + SizeCharge;
+            }
+        }
+        public decimal OverweightCharge { get; set; }
+        public decimal SizeCharge { get; set; }
+        public ParcelSize Size { get; set; }
+        public Parcel Parcel { get; }
     }
 
-    public enum PackageSize
+    public enum ParcelSize
     {
         Small,
         Medium,
