@@ -1,35 +1,49 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTestProject1
 {
     public class Package
     {
-        public int Height { get; set; }
-
-        public int Width { get; set; }
-
-        public int Depth { get; set; }
-
-        public Package()
+        public Package(int height, int width, int length)
         {
+            Height = height;
+            Width = width;
+            Length = length;
         }
+   
+        public int Height { get; }
+
+        public int Width { get;  }
+
+        public int Length { get; }
 
         public int LargestDimension
         {
             get
             {
-                return Enumerable.Max(new []{ Height, Width, Depth });
+                return Enumerable.Max(new []{ Height, Width, Length });
             }
         }
     }
 
-    public class Result
+    public class CalcResult
+    {
+        public CalcResult(IEnumerable<PackageCharge> charges)
+        {
+            Charges = charges;
+        }
+        public decimal TotalCost { get; }
+
+        public IEnumerable<PackageCharge> Charges { get; }
+    }
+
+    public class PackageCharge
     {
         public decimal Cost { get; set; }
-
         public PackageSize Size { get; set; }
-
     }
+
     public enum PackageSize
     {
         Small,
