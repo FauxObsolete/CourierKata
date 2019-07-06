@@ -6,14 +6,15 @@ namespace UnitTestProject1
 {
     public class CostCalculator
     {
-        private readonly Dictionary<ParcelSize, decimal> WeightLimits
-            = new Dictionary<ParcelSize, decimal>(){
-                { ParcelSize.Small, 1 },
-                { ParcelSize.Medium, 3},
-                { ParcelSize.Large, 6},
-                { ParcelSize.XL, 10} };
+        private readonly Dictionary<ParcelType, decimal> WeightLimits
+            = new Dictionary<ParcelType, decimal>(){
+                { ParcelType.Small, 1 },
+                { ParcelType.Medium, 3},
+                { ParcelType.Large, 6},
+                { ParcelType.XL, 10} };
 
-        private const decimal OverweightChargePerKilo = 2.0m; 
+        private const decimal OverweightChargePerKilo = 2;
+        private const decimal HeavyChargeLimit = 50; 
 
         public CalcResult CalcCost(IEnumerable<Parcel> packages)
         {
@@ -25,18 +26,25 @@ namespace UnitTestProject1
         private ParcelCharge SizeCalc(Parcel parcel)
         {
             if (parcel.LargestDimension < 10)
-                return new ParcelCharge(parcel) { SizeCharge = 3, Size = ParcelSize.Small };
+                return new ParcelCharge(parcel) { SizeCharge = 3, Type = ParcelType.Small };
             if (parcel.LargestDimension < 50)
-                return new ParcelCharge(parcel) { SizeCharge = 8, Size = ParcelSize.Medium };
+                return new ParcelCharge(parcel) { SizeCharge = 8, Type = ParcelType.Medium };
             if (parcel.LargestDimension < 100)
-                return new ParcelCharge(parcel) { SizeCharge = 15, Size = ParcelSize.Large };
+                return new ParcelCharge(parcel) { SizeCharge = 15, Type = ParcelType.Large };
 
-            return new ParcelCharge(parcel) { SizeCharge = 25, Size = ParcelSize.XL };
+            return new ParcelCharge(parcel) { SizeCharge = 25, Type = ParcelType.XL };
         }
 
         private ParcelCharge OverWeightCalc(ParcelCharge parcelCharge)
         {
-            var weightLimit = WeightLimits[parcelCharge.Size];
+            if (parcelCharge.Parcel.Weight > HeavyChargeLimit)
+            {
+                parcelCharge.Type = ParcelType.Heavy;
+                overweight
+                return parcelCharge; 
+            }
+
+            var weightLimit = WeightLimits[parcelCharge.Type];
             var overWeight = parcelCharge.Parcel.Weight - weightLimit;
 
             if (overWeight > 0)

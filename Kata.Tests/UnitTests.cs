@@ -8,11 +8,11 @@ namespace UnitTestProject1
     [TestFixture]
     public class UnitTests
     {
-        [TestCase(2, 1, 3, ParcelSize.Small, 3)]
-        [TestCase(1, 12, 43, ParcelSize.Medium, 8)]
-        [TestCase(67, 78, 1, ParcelSize.Large, 15)]
-        [TestCase(120, 40, 1, ParcelSize.XL, 25)]
-        public void TestSizeCharge(int height, int width, int length, ParcelSize type, decimal cost)
+        [TestCase(2, 1, 3, ParcelType.Small, 3)]
+        [TestCase(1, 12, 43, ParcelType.Medium, 8)]
+        [TestCase(67, 78, 1, ParcelType.Large, 15)]
+        [TestCase(120, 40, 1, ParcelType.XL, 25)]
+        public void TestSizeCharge(int height, int width, int length, ParcelType type, decimal cost)
         {
             // arrange
             var package = new Parcel(height, width, length, 0);
@@ -23,7 +23,7 @@ namespace UnitTestProject1
 
             // assert
             Assert.AreEqual(cost, res.Charges.First().TotalCharge);
-            Assert.AreEqual(type, res.Charges.First().Size);
+            Assert.AreEqual(type, res.Charges.First().Type);
         }
 
         [Test]
@@ -47,20 +47,20 @@ namespace UnitTestProject1
 
         }
 
-        [TestCase(20, ParcelSize.Small, 38)]
-        [TestCase(1, ParcelSize.Small, 0)]
-        [TestCase(20, ParcelSize.Medium, 34)]
-        [TestCase(2, ParcelSize.Medium, 0)]
-        [TestCase(20, ParcelSize.Large, 28)]
-        [TestCase(20, ParcelSize.XL, 20)]
-        public void TestOverweightCharge(int weight, ParcelSize type, decimal overweightCharge)
+        [TestCase(20, ParcelType.Small, 38)]
+        [TestCase(1, ParcelType.Small, 0)]
+        [TestCase(20, ParcelType.Medium, 34)]
+        [TestCase(2, ParcelType.Medium, 0)]
+        [TestCase(20, ParcelType.Large, 28)]
+        [TestCase(20, ParcelType.XL, 20)]
+        public void TestOverweightCharge(int weight, ParcelType type, decimal overweightCharge)
         {
             // arrange
-            Dictionary<ParcelSize, Parcel> testParcels = new Dictionary<ParcelSize, Parcel>()
-            { {ParcelSize.Small, new Parcel(2,2,2, weight) },
-              {ParcelSize.Medium, new Parcel(20,20,20, weight) },
-              {ParcelSize.Large, new Parcel(70,70,70, weight) },
-              {ParcelSize.XL, new Parcel(120,120,120, weight) },
+            Dictionary<ParcelType, Parcel> testParcels = new Dictionary<ParcelType, Parcel>()
+            { {ParcelType.Small, new Parcel(2,2,2, weight) },
+              {ParcelType.Medium, new Parcel(20,20,20, weight) },
+              {ParcelType.Large, new Parcel(70,70,70, weight) },
+              {ParcelType.XL, new Parcel(120,120,120, weight) },
              };
 
             var parcel = testParcels[type];

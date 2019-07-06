@@ -70,15 +70,16 @@ namespace UnitTestProject1
         }
         public decimal OverweightCharge { get; set; }
         public decimal SizeCharge { get; set; }
-        public ParcelSize Size { get; set; }
+        public ParcelType Type { get; set; }
         public Parcel Parcel { get; }
     }
 
-    public enum ParcelSize
+    public enum ParcelType
     {
         Small,
         Medium,
         Large,
-        XL
+        XL,
+        Heavy,
     }
 }
