@@ -15,19 +15,19 @@ namespace UnitTestProject1
         public void TestSizeCharge(int height, int width, int length, ParcelType type, decimal cost)
         {
             // arrange
-            var package = new Parcel(height, width, length, 0);
+            var parcel = new Parcel(height, width, length, 0);
 
             // act
             var calc = new CostCalculator();
-            var res = calc.CalcCost(new List<Parcel>() { package });
+            var parcelCharge = calc.CalculateCharges(new List<Parcel>() { parcel }).Charges.First();
 
             // assert
-            Assert.AreEqual(cost, res.Charges.First().TotalCharge);
-            Assert.AreEqual(type, res.Charges.First().Type);
+            Assert.AreEqual(cost, parcelCharge.TotalCharge);
+            Assert.AreEqual(type, parcelCharge.Type);
         }
 
         [Test]
-        public void TestTotals()
+        public void TestOrderTotals()
         {
             // arrange
             var order = new List<Parcel>
@@ -39,12 +39,12 @@ namespace UnitTestProject1
 
             //act 
             var calc = new CostCalculator();
-            var res = calc.CalcCost(order);
+            var orderCharges = calc.CalculateCharges(order);
 
             // assert
-            Assert.AreEqual(48, res.Total);
-            Assert.AreEqual(96, res.SpeedyTotal);
-
+            Assert.AreEqual(48, orderCharges.StandardShippingTotal);
+            Assert.AreEqual(96, orderCharges.SpeedyShippingTotal);
+            Assert.AreEqual(3, orderCharges.Charges.Count());
         }
 
         [TestCase(20, ParcelType.Small, 38)]
@@ -67,10 +67,25 @@ namespace UnitTestProject1
                             
             // act
             var calc = new CostCalculator();
-            var res = calc.CalcCost(new List<Parcel>() { parcel });
+            var res = calc.CalculateCharges(new List<Parcel>() { parcel });
 
             // assert
-            Assert.AreEqual(overweightCharge, res.Charges.First().OverweightCharge);
+            Assert.AreEqual(overweightCharge, res.Charges.First().OverweightSurcharge);
+        }
+        [Test]
+        public void TestHeavyParcelCharge()
+        {
+            //arrange
+            var heavyParcel = new Parcel(4, 4, 5, 60);
+
+            // act
+            var calc = new CostCalculator();
+            var res = calc.CalculateCharges(new List<Parcel>() { heavyParcel });
+
+            //asert
+            Assert.AreEqual(ParcelType.Heavy, res.Charges.First().Type);
+            Assert.AreEqual(10, res.Charges.First().OverweightSurcharge);
+            Assert.AreEqual(50, res.Charges.First().SizeCharge);
         }
     }
 }

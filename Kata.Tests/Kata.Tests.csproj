@@ -49,8 +49,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalcResult.cs" />
     <Compile Include="CostCalculator.cs" />
     <Compile Include="Parcel.cs" />
+    <Compile Include="ParcelCharge.cs" />
+    <Compile Include="ParcelType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests.cs" />
   </ItemGroup>
