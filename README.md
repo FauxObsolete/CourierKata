@@ -1,9 +1,10 @@
 # CourierKata
-fundapps kata
 
-TODO
+### Step 5 - discount multiple parcels
 
-total = standard shipping 
-speedytotal = speedy shipping
+### General Todo
 
-move classe into own files
+* move code into own project seperate from test proj 
+* revisit unit tests to align with final functionality so as 1 feature per test. Revisit specific test case examples
+* add documentation, exception handling etc 
+
