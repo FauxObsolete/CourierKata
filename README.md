@@ -2,10 +2,9 @@
 
 ### Step 5 - discount multiple parcels
 
-ran out of time. 
-started on the test
-need to factor out a helper for generating the test parcels easily
-havent thought too much yet about actual implementation of the discount calculation
+* ran out of time - started on the test
+* need to factor out a helper for generating test parcels quickly
+* havent thought too much yet about actual implementation of the discount calculation..
 
 ### General Todo
 
