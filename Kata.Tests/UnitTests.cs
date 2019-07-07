@@ -87,5 +87,22 @@ namespace UnitTestProject1
             Assert.AreEqual(10, res.Charges.First().OverweightSurcharge);
             Assert.AreEqual(50, res.Charges.First().SizeCharge);
         }
+
+        [TestCase(new string[] { "M1", "M10"}, 0)]
+        [TestCase(new string[] { "M1", "M1", "M1", "M2", "M3"} , 10 )]
+        public void TestMultipleParcelDiscount(string[] parcels, decimal expectedDiscount)
+        {
+            //arrange
+
+            var order = new List<Parcel>();
+
+            // act
+            var calc = new CostCalculator();
+            var res = calc.CalculateCharges(order);
+
+            //assert
+            Assert.Fail("not implemented yet");
+
+        }
     }
 }
